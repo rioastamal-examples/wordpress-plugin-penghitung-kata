@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+
+  tekno_wordpress:
+    image: wordpress
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: tekno_wp_db
+      WORDPRESS_DB_USER: teknocerdas
+      WORDPRESS_DB_PASSWORD: teknocerdas123
+      WORDPRESS_DB_NAME: teknocerdas_db
+    volumes:
+      - ./wordpress:/var/www/html
+
+  tekno_wp_db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: teknocerdas_db
+      MYSQL_USER: teknocerdas
+      MYSQL_PASSWORD: teknocerdas123
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - wp_db:/var/lib/mysql
+
+volumes:
+  wp_db:
